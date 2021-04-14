@@ -1,0 +1,19 @@
+---
+- name: install scl repository
+  yum:
+    name: centos-release-scl
+- name: change repository status(SCLo sclo)
+  ini_file:
+    path: /etc/yum.repos.d/CentOS-SCLo-scl.repo
+    section: centos-sclo-sclo
+    option: enabled
+    value: "{{ '1' if repo_scl_sclo_enabled else '0' }}"
+    mode: "0644"
+- name: change repository status(SCLo rh)
+  ini_file:
+    path: /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
+    section: centos-sclo-rh
+    option: enabled
+    value: "{{ '1' if repo_scl_rh_enabled else '0' }}"
+    mode: "0644"
+  when: repo_scl_rh_enabled is defined
